@@ -3,24 +3,49 @@ package org.changken.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name="likelist")
 public class LikeList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="SN")
     private long sn;
 
+    @Column(name="OrderAmount")
     private long orderAmount;
 
+    @Column(name="Account")
     private String account;
 
+    @Column(name="TotalFee")
     private double totalFee;
+    @Column(name="TotalAmount")
     private double totalAmount;
 
-    @ManyToOne()
-    private User user;
+    @Column(name="UserID")
+    private String userId;
 
-    @ManyToOne()
-    private Product product;
+    @Column(name="Product_No")
+    private long productNo;
+
+//    @ManyToOne()
+//    private User user;
+//
+//    @ManyToOne()
+//    private Product product;
+
+    public LikeList(){
+    }
+
+    public LikeList(long sn, long orderAmount, String account, double totalFee, double totalAmount, String userId, long productNo) {
+        this.sn = sn;
+        this.orderAmount = orderAmount;
+        this.account = account;
+        this.totalFee = totalFee;
+        this.totalAmount = totalAmount;
+        this.userId = userId;
+        this.productNo = productNo;
+    }
 
     public long getSn() {
         return sn;
@@ -62,19 +87,19 @@ public class LikeList {
         this.totalAmount = totalAmount;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
+//
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 }

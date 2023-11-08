@@ -5,16 +5,24 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="No")
     private long no;
+
+    @Column(name="ProductName")
     private String productName;
+
+    @Column(name="Price")
     private double price;
+
+    @Column(name="FeeRate")
     private float feeRate;
 
-    @OneToMany(mappedBy = "product")
-    private List<LikeList> listList;
+//    @OneToMany(mappedBy = "product")
+//    private List<LikeList> listList;
 
     public long getNo() {
         return no;
@@ -48,11 +56,11 @@ public class Product {
         this.feeRate = feeRate;
     }
 
-    public List<LikeList> getListList() {
-        return listList;
-    }
-
-    public void setListList(List<LikeList> listList) {
-        this.listList = listList;
-    }
+//    public List<LikeList> getListList() {
+//        return listList;
+//    }
+//
+//    public void setListList(List<LikeList> listList) {
+//        this.listList = listList;
+//    }
 }
