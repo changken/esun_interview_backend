@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023 年 11 月 09 日 07:37
+-- 產生時間： 2023 年 11 月 09 日 07:36
 -- 伺服器版本： 10.4.28-MariaDB
 -- PHP 版本： 8.2.4
 
@@ -69,6 +69,14 @@ CREATE TABLE `likelist` (
   `Product_No` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 傾印資料表的資料 `likelist`
+--
+
+INSERT INTO `likelist` (`SN`, `OrderAmount`, `Account`, `TotalFee`, `TotalAmount`, `UserID`, `Product_No`) VALUES
+(3, 5, '123456789000', 3.00000, 50003.00000, 'A12345678', 1),
+(4, 3, '123456789001', 344.00000, 240344.00000, 'A22345678', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +90,14 @@ CREATE TABLE `product` (
   `Fee_Rate` decimal(18,5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 傾印資料表的資料 `product`
+--
+
+INSERT INTO `product` (`No`, `Product_Name`, `Price`, `Fee_Rate`) VALUES
+(1, '比特幣', 10000.00000, 0.00005),
+(2, '台灣50', 80000.00000, 0.00143);
+
 -- --------------------------------------------------------
 
 --
@@ -94,6 +110,14 @@ CREATE TABLE `user` (
   `Email` varchar(255) NOT NULL,
   `Account` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `user`
+--
+
+INSERT INTO `user` (`UserID`, `User_Name`, `Email`, `Account`) VALUES
+('A12345678', '吳O耕', 'allenwu@esun.org.tw', '123456789000'),
+('A22345678', '林O欣', 'uslin@esun.org.tw', '123456789001');
 
 --
 -- 已傾印資料表的索引
@@ -127,13 +151,13 @@ ALTER TABLE `user`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `likelist`
 --
 ALTER TABLE `likelist`
-  MODIFY `SN` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `SN` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `No` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `No` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 已傾印資料表的限制式

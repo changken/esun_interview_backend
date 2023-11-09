@@ -17,9 +17,15 @@ public class LikeListController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @GetMapping("/{sn}")
+    public Map<String, Object> query(@PathVariable("sn") long sn){
+        Map<String, Object> map = jdbcTemplate.queryForMap("call query_a_like_item(?)", new Object[]{sn});
+        return map;
+    }
+
     @GetMapping("")
     public List<Map<String, Object>> list(){
-        List<Map<String, Object>> map = jdbcTemplate.queryForList("call list_all_of_like_item()", new BeanPropertyRowMapper<LikeList>(LikeList.class));
+        List<Map<String, Object>> map = jdbcTemplate.queryForList("call list_all_of_like_item()", new Object[]{});
         return map;
     }
 
@@ -38,8 +44,7 @@ public class LikeListController {
         return map;
     }
 
-    @PutMapping("/{sn}")
-    @PatchMapping("/{sn}")
+    @RequestMapping(value = "/{sn}", method = {RequestMethod.PATCH, RequestMethod.PUT})
     public Map update(@PathVariable("sn") long sn, @RequestBody LikeList likeList){
         Map<String, Object> map = new HashMap<>();
         int rows = jdbcTemplate.update("call update_a_like_item(?, ?, ?, ?, ?, ?, ?)",
