@@ -1,34 +1,37 @@
-package org.changken.demo;
+package org.changken.demo.controller;
 
 import org.changken.demo.dao.ProductDAO;
 import org.changken.demo.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
     private ProductDAO productDAO;
-    @PostMapping("/")
-    @PutMapping("/")
-    @PatchMapping("/")
-    public Product createProduct(Product product){
+
+    @GetMapping("")
+    public List<Product> listProduct(){
+        List<Product> products = new ArrayList<>();
+        products.addAll(productDAO.findAll());
+        return products;
+    }
+
+    @RequestMapping(value = "", method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH})
+    public Product createProduct(@RequestBody Product product){
         return productDAO.save(product);
     }
 
     @GetMapping("/{no}")
-    public Optional<Product> queryProduct(@RequestParam("no") long no){
+    public Optional<Product> queryProduct(@PathVariable("no") long no){
         return productDAO.findById(no);
     }
 
     @DeleteMapping("/{id}")
-    public Map deleteProduct(@RequestParam("no") long no){
+    public Map deleteProduct(@PathVariable("no") long no){
         Map<String, Object> map = new HashMap<>();
         try {
             productDAO.deleteById(no);

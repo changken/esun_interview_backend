@@ -87,7 +87,23 @@ public class LikeList {
         this.totalAmount = totalAmount;
     }
 
-//    public User getUser() {
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public long getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(long productNo) {
+        this.productNo = productNo;
+    }
+
+    //    public User getUser() {
 //        return user;
 //    }
 //

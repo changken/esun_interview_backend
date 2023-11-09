@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name="user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="UserID")
     private String userId;
 
-    @Column(name="UserName")
+    @Column(name="User_Name")
     private String userName;
 
     @Column(name="Email")

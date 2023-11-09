@@ -12,14 +12,14 @@ public class Product {
     @Column(name="No")
     private long no;
 
-    @Column(name="ProductName")
+    @Column(name="Product_Name")
     private String productName;
 
     @Column(name="Price")
     private double price;
 
-    @Column(name="FeeRate")
-    private float feeRate;
+    @Column(name="Fee_Rate")
+    private double feeRate;
 
 //    @OneToMany(mappedBy = "product")
 //    private List<LikeList> listList;
@@ -48,11 +48,11 @@ public class Product {
         this.price = price;
     }
 
-    public float getFeeRate() {
+    public double getFeeRate() {
         return feeRate;
     }
 
-    public void setFeeRate(float feeRate) {
+    public void setFeeRate(double feeRate) {
         this.feeRate = feeRate;
     }
 
