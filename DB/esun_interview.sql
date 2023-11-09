@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2023 年 11 月 09 日 07:37
--- 伺服器版本： 10.4.28-MariaDB
--- PHP 版本： 8.2.4
+-- 產生時間： 2023-11-09 12:45:09
+-- 伺服器版本： 10.4.27-MariaDB
+-- PHP 版本： 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `create_a_like_item` (IN `in_OrderAm
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_a_like_item` (IN `in_SN` BIGINT)   DELETE FROM `likelist` WHERE `SN`=in_SN$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `list_all_of_like_item` ()   SELECT * FROM `likelist`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `list_all_of_like_item` ()   SELECT 
+l.SN,
+l.OrderAmount,
+l.TotalFee,
+l.TotalAmount,
+u.UserID,
+u.User_Name,
+u.Email,
+u.Account,
+p.No,
+p.Product_Name,
+p.Price,
+p.Fee_Rate
+FROM `likelist` l
+INNER JOIN `user` u ON u.UserID = l.UserID
+INNER JOIN `product` p ON p.No = l.Product_No
+ORDER BY l.SN$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `query_a_like_item` (IN `in_SN` BIGINT)   SELECT 
 l.SN,
