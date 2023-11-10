@@ -9,6 +9,27 @@ DELETE FROM `likelist` WHERE `SN`=in_SN$$
     DELIMITER ;
 
 DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `list_all_of_like_item`()
+SELECT
+    l.SN,
+    l.OrderAmount,
+    l.TotalFee,
+    l.TotalAmount,
+    u.UserID,
+    u.User_Name,
+    u.Email,
+    u.Account,
+    p.No,
+    p.Product_Name,
+    p.Price,
+    p.Fee_Rate
+FROM `likelist` l
+         INNER JOIN `user` u ON u.UserID = l.UserID
+         INNER JOIN `product` p ON p.No = l.Product_No
+ORDER BY l.SN$$
+    DELIMITER ;
+
+DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `query_a_like_item`(IN `in_SN` BIGINT)
 SELECT
     l.SN,
@@ -35,22 +56,11 @@ UPDATE `likelist` SET `OrderAmount`=in_OrderAmount, `Account`=in_Account, `Total
     DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `list_all_of_like_item`()
-SELECT
-    l.SN,
-    l.OrderAmount,
-    l.TotalFee,
-    l.TotalAmount,
-    u.UserID,
-    u.User_Name,
-    u.Email,
-    u.Account,
-    p.No,
-    p.Product_Name,
-    p.Price,
-    p.Fee_Rate
-FROM `likelist` l
-         INNER JOIN `user` u ON u.UserID = l.UserID
-         INNER JOIN `product` p ON p.No = l.Product_No
-ORDER BY l.SN$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_a_product`(IN `in_No` BIGINT, IN `in_Product_Name` VARCHAR(255), IN `in_Price` DECIMAL(18,5), IN `in_Fee_Rate` DECIMAL(18,5))
+UPDATE `product` p SET p.Product_Name = in_Product_Name, p.Price = in_Price, p.Fee_Rate  = in_Fee_Rate WHERE p.No = in_No$$
+    DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_total_amount_and_fee_after_update_product`(IN `in_No` BIGINT)
+UPDATE `likelist` l, `product` p SET l.TotalAmount = p.Price * l.OrderAmount *(1+p.Fee_Rate), l.TotalFee = p.Price * l.OrderAmount * p.Fee_Rate WHERE l.Product_No = p.No AND p.No = in_No$$
     DELIMITER ;

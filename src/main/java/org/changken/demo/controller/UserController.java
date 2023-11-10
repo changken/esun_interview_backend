@@ -24,14 +24,6 @@ public class UserController {
     }
     @RequestMapping(value = "", method = {RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH})
     public User createUser(@RequestBody User user){
-//        Optional<User> query_user = userDAO.findById(user.getUserId());
-//        User res = new User();
-//        if(query_user.isPresent()){
-//            query_user.get().setUserName(user.getUserName());
-//            query_user.get().setAccount(user.getAccount());
-//            query_user.get().setEmail(user.getEmail());
-//
-//        }
         return userDAO.save(user);
     }
 
@@ -46,9 +38,11 @@ public class UserController {
         try {
             userDAO.deleteById(userId);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            map.put("status", "error");
+            map.put("msg", e.getMessage());
         }finally {
-            map.put("ok", 200);
+            map.put("status", "ok");
+            map.put("msg", "anything is ok!");
         }
         return map;
     }
